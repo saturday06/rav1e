@@ -24,7 +24,6 @@ fn main() {
     };
 
     let dst = cmake::Config::new(build_path)
-        .define("CONFIG_DEBUG", debug)
         .define("CONFIG_EXT_PARTITION_TYPES", "0")
         .define("CONFIG_INTRA_EDGE2", "0")
         .define("CONFIG_OBU", "1")
@@ -39,6 +38,9 @@ fn main() {
         .define("CONFIG_ANALYZER", "0")
         .define("ENABLE_DOCS", "0")
         .define("CONFIG_UNIT_TESTS", "0")
+        .cflag("-march=native")
+        .cxxflag("-march=native")
+        .build_arg("VERBOSE=1")
         .build();
 
     // Dirty hack to force a rebuild whenever the defaults are changed upstream
